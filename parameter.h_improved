@@ -1,0 +1,37 @@
+template <typename T>
+class Parameter {
+public:
+    // Default constructor initializes data to a default-constructed value of type T.
+    Parameter() : data(T()) {}
+
+    // Parameterized constructor initializes data with a provided value of type T.
+    explicit Parameter(T paramT) : data(paramT) {}
+
+    // Copy constructor for creating a copy of another Parameter instance.
+    Parameter(const Parameter& other) : data(other.data) {}
+
+    // Move constructor for transferring resources from another Parameter instance.
+    Parameter(Parameter&& other) noexcept : data(std::move(other.data)) {}
+
+    // Copy assignment operator for copying from another Parameter instance.
+    Parameter& operator=(const Parameter& other) {
+        if (this != &other) {
+            data = other.data;
+        }
+        return *this;
+    }
+
+    // Move assignment operator for transferring resources from another Parameter instance.
+    Parameter& operator=(Parameter&& other) noexcept {
+        if (this != &other) {
+            data = std::move(other.data);
+        }
+        return *this;
+    }
+
+    // Const member function to safely access the value of data.
+    const T& getData() const { return data; }
+
+    // Member variable to store the actual data of type T.
+    T data;
+};
